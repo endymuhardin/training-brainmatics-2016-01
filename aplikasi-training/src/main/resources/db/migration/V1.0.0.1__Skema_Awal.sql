@@ -25,7 +25,7 @@ create table peserta (
     no_hp VARCHAR(255) NOT NULL,
     CONSTRAINT `pk_peserta` PRIMARY KEY (`id`),
     CONSTRAINT `uk_email` UNIQUE(`email`),
-    CONSTRAINT `fk_institusi` FOREIGN KEY (`id_institusi`) 
+    CONSTRAINT `fk_institusi_peserta` FOREIGN KEY (`id_institusi`) 
         REFERENCES institusi(`id`)
 ) Engine=InnoDB ;
 
