@@ -4,25 +4,25 @@
 
 1. Login ke MySQL
 
-    mysql -u root
+        mysql -u root
 
 2. Create username dan password untuk connect ke database
 
-    grant all on pelatihan.* to pelatihan@localhost identified by '1234';
+        grant all on pelatihan.* to pelatihan@localhost identified by '1234';
 
 3. Create database
 
-    create database pelatihan;
+        create database pelatihan;
 
 4. Logout sebagai user root
 
-    \q
+        \q
 
 5. Login sebagai user pelatihan
 
-    mysql -u pelatihan -p
-    Enter password:1234[Enter]
+        mysql -u pelatihan -p
+        Enter password:1234[Enter]
 
 6. Pilih database
 
-    use pelatihan;
+        use pelatihan;
