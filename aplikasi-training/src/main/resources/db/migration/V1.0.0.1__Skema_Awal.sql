@@ -40,12 +40,9 @@ create table kelas (
 ) Engine=InnoDB ;
 
 create table kelas_detail_materi (
-    id VARCHAR(36),
     id_kelas VARCHAR(36) NOT NULL,
     id_materi VARCHAR(36) NOT NULL,
-    urutan INT NOT NULL,
-    CONSTRAINT `pk_kelas_detail_materi` PRIMARY KEY (`id`),
-    CONSTRAINT `uk_urutan_materi` UNIQUE(`urutan`),
+    CONSTRAINT `pk_kelas_detail_materi` PRIMARY KEY (`id_kelas`, `id_materi`),
     CONSTRAINT `uk_materi_kelas` UNIQUE(`id_kelas`, `id_materi`),
     CONSTRAINT `fk_materi` FOREIGN KEY (`id_materi`) 
         REFERENCES materi(`id`),
@@ -54,10 +51,9 @@ create table kelas_detail_materi (
 ) Engine=InnoDB ;
 
 create table kelas_detail_peserta (
-    id VARCHAR(36),
     id_kelas VARCHAR(36) NOT NULL,
     id_peserta VARCHAR(36) NOT NULL,
-    CONSTRAINT `pk_kelas_detail_peserta` PRIMARY KEY (`id`),
+    CONSTRAINT `pk_kelas_detail_peserta` PRIMARY KEY (`id_kelas`, `id_peserta`),
     CONSTRAINT `uk_peserta_kelas` UNIQUE(`id_kelas`, `id_peserta`),
     CONSTRAINT `fk_peserta_kelas` FOREIGN KEY (`id_peserta`) 
         REFERENCES peserta(`id`),
