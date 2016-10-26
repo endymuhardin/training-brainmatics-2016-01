@@ -1,6 +1,12 @@
 package com.braimatics.training.dao;
 
 import com.braimatics.training.entity.Kelas;
+import com.braimatics.training.entity.Materi;
+import com.braimatics.training.entity.Peserta;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.Period;
+import java.util.Date;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,5 +33,40 @@ public class KelasDaoTests {
         Assert.assertEquals("Kelas 001", k.getNama());
         Assert.assertTrue(2 == k.getDaftarMateri().size());
         Assert.assertTrue(5 == k.getDaftarPeserta().size());
+    }
+    
+    @Test 
+    @Transactional
+    public void testKelasBaru(){
+        Kelas k = new Kelas();
+        k.setKode("K-002");
+        k.setNama("Kelas 002");
+        k.setTanggalMulai(new Date());
+        k.setTanggalSelesai(Date.from(Instant.now().plus(Period.ofDays(4))));
+        
+        kd.save(k);
+        Assert.assertNotNull(k.getId());
+        
+        // menambah materi
+        Materi m1 = new Materi();
+        // idnya sudah tahu, langsung set aja gak perlu query dari db
+        m1.setId("jfu001"); 
+        k.getDaftarMateri().add(m1);
+        
+        Materi m2 = new Materi();
+        m2.setId("jsi001");
+        k.getDaftarMateri().add(m2);
+        
+        // tambah peserta
+        Peserta p = new Peserta();
+        p.setId("p001");
+        k.getDaftarPeserta().add(p);
+        
+        kd.save(k);
+        
+        Kelas kx = kd.findOne(k.getId());
+        Assert.assertTrue(2 == kx.getDaftarMateri().size());
+        Assert.assertTrue(1 == kx.getDaftarPeserta().size());
+           
     }
 }
