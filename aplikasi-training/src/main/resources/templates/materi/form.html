@@ -14,25 +14,37 @@ and open the template in the editor.
             <h1 class="page-header">Edit Materi</h1>
 
             <form class="form-horizontal" method="post" th:object="${materi}">
-                <div class="form-group">
+                <div class="form-group" th:classappend="${#fields.hasErrors('kode')} ? 'has-error'">
                     <label for="kode" class="col-sm-2 control-label">Kode Materi</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="kode" placeholder="Kode Materi" 
                                th:field="*{kode}"/>
+                        <label class="control-label" 
+                              th:errors="*{kode}">
+                            Pesan error nanti di sini
+                        </label>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" th:classappend="${#fields.hasErrors('nama')} ? 'has-error'">
                     <label for="nama" class="col-sm-2 control-label">Nama Materi</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="nama" placeholder="Nama Materi" 
                                th:field="*{nama}"/>
+                        <label class="control-label" 
+                              th:errors="*{nama}">
+                            Pesan error nanti di sini
+                        </label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="durasi" class="col-sm-2 control-label">Nama Materi</label>
+                <div class="form-group" th:classappend="${#fields.hasErrors('durasi')} ? 'has-error'">
+                    <label for="durasi" class="col-sm-2 control-label">Durasi</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="durasi" placeholder="Durasi (dalam jam)" 
                                th:field="*{durasi}"/>
+                        <label class="control-label" 
+                              th:errors="*{durasi}">
+                            Pesan error nanti di sini
+                        </label>
                     </div>
                 </div>
                 <div class="form-group">

@@ -2,11 +2,13 @@ package com.braimatics.training.controller;
 
 import com.braimatics.training.dao.MateriDao;
 import com.braimatics.training.entity.Materi;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,7 +49,12 @@ public class MateriController {
     }
     
     @RequestMapping(value = "form", method = RequestMethod.POST)
-    public String prosesForm(@ModelAttribute Materi m){
+    public String prosesForm(@ModelAttribute @Valid Materi m, BindingResult hasilValidasi){
+        
+        if(hasilValidasi.hasErrors()) {
+            return "/materi/form";
+        }
+        
         md.save(m);
         return "redirect:list";
     }
