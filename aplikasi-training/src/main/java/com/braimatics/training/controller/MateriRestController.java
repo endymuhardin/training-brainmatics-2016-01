@@ -35,4 +35,10 @@ public class MateriRestController {
     public Materi cariById(@PathVariable String id){
         return md.findOne(id);
     }
+    
+    @RequestMapping(value="/{id}", method = RequestMethod.PUT)
+    public void update(@PathVariable String id, @RequestBody @Valid Materi m){
+        m.setId(id);
+        md.save(m);
+    }
 }
