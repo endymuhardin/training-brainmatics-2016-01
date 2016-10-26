@@ -3,10 +3,7 @@ package com.braimatics.training.dao;
 import com.braimatics.training.entity.Kelas;
 import com.braimatics.training.entity.Materi;
 import com.braimatics.training.entity.Peserta;
-import java.time.Instant;
-import java.time.LocalTime;
-import java.time.Period;
-import java.util.Date;
+import java.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,8 +38,8 @@ public class KelasDaoTests {
         Kelas k = new Kelas();
         k.setKode("K-002");
         k.setNama("Kelas 002");
-        k.setTanggalMulai(new Date());
-        k.setTanggalSelesai(Date.from(Instant.now().plus(Period.ofDays(4))));
+        k.setTanggalMulai(LocalDate.now());
+        k.setTanggalSelesai(LocalDate.now().plusDays(4));
         
         kd.save(k);
         Assert.assertNotNull(k.getId());

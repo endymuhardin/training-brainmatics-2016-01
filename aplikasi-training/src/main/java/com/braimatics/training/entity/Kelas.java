@@ -1,7 +1,7 @@
 package com.braimatics.training.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -28,12 +26,10 @@ public class Kelas {
     private String nama;
     
     @Column(name = "tanggal_mulai", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date tanggalMulai;
+    private LocalDate tanggalMulai;
     
     @Column(name = "tanggal_selesai", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date tanggalSelesai;
+    private LocalDate tanggalSelesai;
     
     @ManyToMany
     @JoinTable(
@@ -75,19 +71,19 @@ public class Kelas {
         this.nama = nama;
     }
 
-    public Date getTanggalMulai() {
+    public LocalDate getTanggalMulai() {
         return tanggalMulai;
     }
 
-    public void setTanggalMulai(Date tanggalMulai) {
+    public void setTanggalMulai(LocalDate tanggalMulai) {
         this.tanggalMulai = tanggalMulai;
     }
 
-    public Date getTanggalSelesai() {
+    public LocalDate getTanggalSelesai() {
         return tanggalSelesai;
     }
 
-    public void setTanggalSelesai(Date tanggalSelesai) {
+    public void setTanggalSelesai(LocalDate tanggalSelesai) {
         this.tanggalSelesai = tanggalSelesai;
     }
 
