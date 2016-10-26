@@ -1,10 +1,13 @@
 package com.braimatics.training.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -24,6 +27,9 @@ public class Peserta {
     @ManyToOne
     @JoinColumn(name = "id_institusi")
     private Institusi institusi;
+    
+    @ManyToMany(mappedBy = "daftarPeserta")
+    private List<Kelas> daftarKelas = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -63,6 +69,14 @@ public class Peserta {
 
     public void setInstitusi(Institusi institusi) {
         this.institusi = institusi;
+    }
+
+    public List<Kelas> getDaftarKelas() {
+        return daftarKelas;
+    }
+
+    public void setDaftarKelas(List<Kelas> daftarKelas) {
+        this.daftarKelas = daftarKelas;
     }
     
     
