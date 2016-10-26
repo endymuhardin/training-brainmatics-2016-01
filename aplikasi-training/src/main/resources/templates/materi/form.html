@@ -11,7 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <section layout:fragment="content">
-            <h1 class="page-header">Edit Materi</h1>
+            <h1 class="page-header" th:text='#{materi.form}'>Edit Materi</h1>
 
             <form class="form-horizontal" method="post" th:object="${materi}">
                 <div class="form-group" th:classappend="${#fields.hasErrors('kode')} ? 'has-error'">
