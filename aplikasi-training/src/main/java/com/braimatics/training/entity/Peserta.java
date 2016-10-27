@@ -9,7 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Peserta {
@@ -18,10 +22,15 @@ public class Peserta {
     private String id;
     
     @Column(nullable = false)
+    @NotNull @NotEmpty @Size(min = 3, max = 255)
     private String nama;
+    
     @Column(nullable = false, unique = true)
+    @NotNull @NotEmpty @Email
     private String email;
+    
     @Column(name = "no_hp", nullable = false)
+    @NotNull @NotEmpty
     private String nomerHandphone;
     
     @ManyToOne

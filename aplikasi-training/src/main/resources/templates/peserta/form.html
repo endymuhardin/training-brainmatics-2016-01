@@ -13,26 +13,52 @@ and open the template in the editor.
         <section layout:fragment="content">
             <h1 class="page-header">Edit Peserta</h1>
 
-            <form class="form-horizontal" method="post">
+            <form class="form-horizontal" method="post" th:object="${peserta}">
                 <div class="form-group">
                     <label for="institusi" class="col-sm-2 control-label">Institusi</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="institusi">
-                            <option>Brainmatics</option>
-                            <option>ArtiVisi</option>
+                        <select class="form-control" name="institusi" th:field="*{institusi}">
+                            <option value="">Tanpa Institusi</option>
+                            <option th:each = "institusi : ${daftarInstitusi}"
+                                    th:value="${institusi.id}"
+                                    th:text="${institusi.kode} +' - '+ ${institusi.nama}">Tanpa Institusi</option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="kode" class="col-sm-2 control-label">Kode Peserta</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="kode" placeholder="Kode Peserta" />
-                    </div>
-                </div>
-                <div class="form-group">
+                <div class="form-group" th:classappend="${#fields.hasErrors('nama')} ? 'has-error'">
                     <label for="nama" class="col-sm-2 control-label">Nama Peserta</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nama" placeholder="Nama Peserta" />
+                        <input type="text" 
+                               th:field="*{nama}"
+                               class="form-control" id="nama" placeholder="Nama Peserta" />
+                        <label class="control-label" 
+                                  th:errors="*{nama}">
+                            Pesan error nanti di sini
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('email')} ? 'has-error'">
+                    <label for="email" class="col-sm-2 control-label">Email Peserta</label>
+                    <div class="col-sm-10">
+                        <input type="text" 
+                               th:field="*{email}"
+                               class="form-control" id="email" placeholder="Email Peserta" />
+                        <label class="control-label" 
+                                  th:errors="*{email}">
+                            Pesan error nanti di sini
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('nomerHandphone')} ? 'has-error'">
+                    <label for="nomerHandphone" class="col-sm-2 control-label">No. Handphone</label>
+                    <div class="col-sm-10">
+                        <input type="text" 
+                               th:field="*{nomerHandphone}"
+                               class="form-control" id="nomerHandphone" placeholder="08xxxxx" />
+                        <label class="control-label" 
+                                  th:errors="*{nomerHandphone}">
+                            Pesan error nanti di sini
+                        </label>
                     </div>
                 </div>
                 <div class="form-group">
