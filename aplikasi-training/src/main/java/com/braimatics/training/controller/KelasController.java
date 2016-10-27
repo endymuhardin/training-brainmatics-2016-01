@@ -66,11 +66,11 @@ public class KelasController {
         if (kelas != null) {
             mm.addAttribute("kelas", kelas);
 
-            if(daftarMateri == null) {
+            if(daftarMateri == null || daftarMateri.isEmpty()) {
                 daftarMateri = kelas.getDaftarMateri();
             }
             
-            if(daftarPeserta == null){
+            if(daftarPeserta == null || daftarPeserta.isEmpty()){
                 daftarPeserta = kelas.getDaftarPeserta();
             }
         } else {
@@ -118,6 +118,7 @@ public class KelasController {
         kelas.setDaftarMateri(daftarMateri);
         kelas.setDaftarPeserta(daftarPeserta);
         kd.save(kelas);
+        status.setComplete();
         
         return "redirect:list";
     }
