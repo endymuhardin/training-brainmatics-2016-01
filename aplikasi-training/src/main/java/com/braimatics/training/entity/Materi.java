@@ -1,5 +1,6 @@
 package com.braimatics.training.entity;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -61,4 +62,43 @@ public class Materi {
     public void setDurasi(Integer durasi) {
         this.durasi = durasi;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.kode);
+        hash = 47 * hash + Objects.hashCode(this.nama);
+        hash = 47 * hash + Objects.hashCode(this.durasi);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Materi other = (Materi) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.kode, other.kode)) {
+            return false;
+        }
+        if (!Objects.equals(this.nama, other.nama)) {
+            return false;
+        }
+        if (!Objects.equals(this.durasi, other.durasi)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

@@ -11,7 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Kelas {
@@ -19,15 +22,19 @@ public class Kelas {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     
+    @NotNull @NotEmpty @Size(min = 3, max = 10)
     @Column(unique = true, nullable = false)
     private String kode;
     
+    @NotNull @NotEmpty @Size(min = 3, max = 255)
     @Column(nullable = false)
     private String nama;
     
+    @NotNull
     @Column(name = "tanggal_mulai", nullable = false)
     private LocalDate tanggalMulai;
     
+    @NotNull
     @Column(name = "tanggal_selesai", nullable = false)
     private LocalDate tanggalSelesai;
     

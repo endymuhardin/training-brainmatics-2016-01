@@ -21,7 +21,7 @@ and open the template in the editor.
                                th:field="*{kode}"
                                class="form-control" id="kode" placeholder="Kode Kelas" />
                         <label class="control-label" 
-                                  th:errors="*{kode}">
+                               th:errors="*{kode}">
                             Pesan error nanti di sini
                         </label>
                     </div>
@@ -33,7 +33,7 @@ and open the template in the editor.
                                th:field="*{nama}"
                                class="form-control" id="nama" placeholder="Nama Kelas" />
                         <label class="control-label" 
-                                  th:errors="*{nama}">
+                               th:errors="*{nama}">
                             Pesan error nanti di sini
                         </label>
                     </div>
@@ -45,7 +45,7 @@ and open the template in the editor.
                                th:field="*{tanggalMulai}"
                                class="form-control" id="mulai" placeholder="Tanggal Mulai" />
                         <label class="control-label" 
-                                  th:errors="*{tanggalMulai}">
+                               th:errors="*{tanggalMulai}">
                             Pesan error nanti di sini
                         </label>
                     </div>
@@ -57,71 +57,11 @@ and open the template in the editor.
                                th:field="*{tanggalSelesai}"
                                class="form-control" id="selesai" placeholder="Tanggal Selesai" />
                         <label class="control-label" 
-                                  th:errors="*{tanggalSelesai}">
+                               th:errors="*{tanggalSelesai}">
                             Pesan error nanti di sini
                         </label>
                     </div>
                 </div>
-
-                <hr />
-
-                <h3>Materi Pelajaran</h3>
-
-                <button class="btn btn-primary">Tambah Materi</button>
-
-                <table class="table table-condensed table-striped">
-                    <thead>
-                        <tr>
-                            <th>Kode Materi</th>
-                            <th>Nama Materi</th>
-                            <th>Durasi</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr th:each="materi : ${daftarMateri}">
-                            <td th:text="${materi.kode}">JFU-001</td>
-                            <td th:text="${materi.nama}">Java Fundamental</td>
-                            <td th:text="${materi.durasi}">4 jam</td>
-                            <td>
-                                <a href="#">
-                                    hapus
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <hr />
-
-                <h3>Peserta</h3>
-                <button class="btn btn-primary">Tambah Peserta</button>
-
-                <table class="table table-condensed table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nama Peserta</th>
-                            <th>Email</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr th:each="peserta : ${daftarPeserta}">
-                            <td th:text="${peserta.nama}">Endy Muhardin</td>
-                            <td th:text="${peserta.email}">endy.muhardin@gmail.com</td>
-                            <td>
-                                <a href="#">
-                                    hapus
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                </a>
-                            </td>
-
-                        </tr>
-                    </tbody>
-                </table>
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
@@ -129,6 +69,156 @@ and open the template in the editor.
                     </div>
                 </div>
             </form>
+
+            <hr />
+
+            <h3>Materi Pelajaran</h3>
+
+            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahMateri">Tambah Materi</button>
+
+            <table class="table table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th>Kode Materi</th>
+                        <th>Nama Materi</th>
+                        <th>Durasi</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="materi : ${daftarMateri}">
+                        <td th:text="${materi.kode}">JFU-001</td>
+                        <td th:text="${materi.nama}">Java Fundamental</td>
+                        <td th:text="${materi.durasi}">4 jam</td>
+                        <td>
+                            <a th:href="@{/kelas/form(id=${kelas.id},id_materi=${materi.id},action=remove)}" class="btn btn-xs" th:if="${kelas}">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </a>
+                            <a th:href="@{/kelas/form(id_materi=${materi.id},action=remove)}" class="btn btn-xs" th:unless="${kelas}">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr />
+
+            <h3>Peserta</h3>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahPeserta">Tambah Peserta</button>
+
+            <table class="table table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th>Nama Peserta</th>
+                        <th>Email</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="peserta : ${daftarPeserta}">
+                        <td th:text="${peserta.nama}">Endy Muhardin</td>
+                        <td th:text="${peserta.email}">endy.muhardin@gmail.com</td>
+                        <td>
+                            <a th:href="@{/kelas/form(id=${kelas.id},id_peserta=${peserta.id},action=remove)}" class="btn btn-xs" th:if="${kelas}">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </a>
+                            <a th:href="@{/kelas/form(id_peserta=${peserta.id},action=remove)}" class="btn btn-xs" th:unless="${kelas}">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </a>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <!-- Dialog Tambah Materi -->
+            <div class="modal fade" id="tambahMateri" tabindex="-1" role="dialog" aria-labelledby="tambahMateriLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="tambahMateriLabel">Tambah Materi</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-condensed table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Kode Materi</th>
+                                        <th>Nama Materi</th>
+                                        <th>Durasi (dalam jam)</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr th:each="materi : ${pilihanMateri}">
+                                        <td th:text="${materi.kode}">JFU-001</td>
+                                        <td th:text="${materi.nama}">Java Fundamental</td>
+                                        <td th:text="${materi.durasi}">4 jam</td>
+                                        <td>
+                                            <a th:href="@{/kelas/form(id=${kelas.id},id_materi=${materi.id},action=add)}" class="btn btn-xs" th:if="${kelas}">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            </a>
+                                            <a th:href="@{/kelas/form(id_materi=${materi.id},action=add)}" class="btn btn-xs" th:unless="${kelas}">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dialog Tambah Peserta -->
+            <div class="modal fade" id="tambahPeserta" tabindex="-1" role="dialog" aria-labelledby="tambahPesertaLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="tambahPesertaLabel">Tambah Peserta</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-condensed table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Peserta</th>
+                                        <th>Email</th>
+                                        <th>Handphone</th>
+                                        <th>Institusi</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr th:each="peserta : ${pilihanPeserta}">
+                                        <td th:text="${peserta.nama}">Endy Muhardin</td>
+                                        <td th:text="${peserta.email}">endy.muhardin@gmail.com</td>
+                                        <td th:text="${peserta.nomerHandphone}">081234567890</td>
+                                        <td th:if="${peserta.institusi}" th:text="${peserta.institusi.kode} +' - '+ ${peserta.institusi.nama}">BR-001 - Brainmatics</td>
+                                        <td th:unless="${peserta.institusi}"> - </td>
+                                        <td>
+                                            <a th:href="@{/kelas/form(id=${kelas.id},id_peserta=${peserta.id},action=add)}" class="btn btn-xs" th:if="${kelas}">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            </a>
+                                            <a th:href="@{/kelas/form(id_peserta=${peserta.id},action=add)}" class="btn btn-xs" th:unless="${kelas}">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </section>
     </body>
