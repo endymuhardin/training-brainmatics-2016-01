@@ -26,3 +26,9 @@
 6. Pilih database
 
         use pelatihan;
+
+
+## Debugging Rest API ##
+
+* Chrome: gunakan extension [Rest Console](https://chrome.google.com/webstore/detail/rest-console/cokgbflfommojglbmbpenpphppikmonn)
+
