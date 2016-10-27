@@ -63,25 +63,21 @@ public class KelasController {
             @SessionAttribute(name = "daftarPeserta", required = false) List<Peserta> daftarPeserta,
             ModelMap mm) {
 
+        if ("edit".equalsIgnoreCase(action)) {
+            daftarMateri = new ArrayList<>();
+            daftarPeserta = new ArrayList<>();
+        }
+        
         if (kelas != null) {
             mm.addAttribute("kelas", kelas);
 
-            if(daftarMateri == null || daftarMateri.isEmpty()) {
+            if("edit".equalsIgnoreCase(action)){
                 daftarMateri = kelas.getDaftarMateri();
-            }
-            
-            if(daftarPeserta == null || daftarPeserta.isEmpty()){
                 daftarPeserta = kelas.getDaftarPeserta();
             }
+            
         } else {
             mm.addAttribute("kelas", new Kelas());
-            if (daftarMateri == null) {
-                daftarMateri = new ArrayList<>();
-            }
-
-            if (daftarPeserta == null) {
-                daftarPeserta = new ArrayList<>();
-            }
         }
 
         if (materi != null) {
@@ -108,8 +104,8 @@ public class KelasController {
     public String prosesForm(@ModelAttribute @Valid Kelas kelas, 
             BindingResult hasilValidasi, 
             SessionStatus status,
-            @SessionAttribute(name = "daftarMateri", required = false) List<Materi> daftarMateri,
-            @SessionAttribute(name = "daftarPeserta", required = false) List<Peserta> daftarPeserta
+            @SessionAttribute(name = "daftarMateri") List<Materi> daftarMateri,
+            @SessionAttribute(name = "daftarPeserta") List<Peserta> daftarPeserta
             ) {
         if(hasilValidasi.hasErrors()) {
             return "/kelas/form";
