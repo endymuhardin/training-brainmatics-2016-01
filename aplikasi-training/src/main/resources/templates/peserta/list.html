@@ -22,20 +22,25 @@ and open the template in the editor.
                     <tr>
                         <th>Nama Peserta</th>
                         <th>Email</th>
+                        <th>Handphone</th>
+                        <th>Institusi</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>Endy Muhardin</td>
-                        <td>endy.muhardin@gmail.com</td>
+                    <tr th:each="peserta : ${daftarPeserta}">
+                        <td th:text="${peserta.nama}">Endy Muhardin</td>
+                        <td th:text="${peserta.email}">endy.muhardin@gmail.com</td>
+                        <td th:text="${peserta.nomerHandphone}">081234567890</td>
+                        <td th:if="${peserta.institusi}" th:text="${peserta.institusi.kode} +' - '+ ${peserta.institusi.nama}">BR-001 - Brainmatics</td>
+                        <td th:unless="${peserta.institusi}"> - </td>
                         <td>
-                            <a th:href="@{/peserta/form}" class="btn btn-xs">
+                            <a th:href="@{/peserta/form(id=${peserta.id})}" class="btn btn-xs">
                                 edit
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a>
-                            <a th:href="@{/peserta/form}">
+                            <a th:href="@{/peserta/delete(id=${peserta.id})}">
                                 hapus
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </a>
