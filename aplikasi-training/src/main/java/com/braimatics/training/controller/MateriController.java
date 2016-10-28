@@ -3,12 +3,9 @@ package com.braimatics.training.controller;
 import com.braimatics.training.dao.MateriDao;
 import com.braimatics.training.entity.Materi;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import net.sf.jasperreports.engine.JRException;
@@ -18,11 +15,13 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -69,6 +68,19 @@ public class MateriController {
         response.setContentType("application/x-pdf");
         response.setHeader("Content-disposition", "attachment; filename=daftar-materi.pdf");
         JasperExportManager.exportReportToPdfStream(materiReport, response.getOutputStream());
+    }
+    
+    @RequestMapping("/xls")
+    @ResponseBody
+    public void generateXls(HttpServletResponse response) throws JRException, IOException{
+        JasperPrint materiReport = generateMateriJasperReport();
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-disposition", "attachment; filename=daftar-materi.xlsx");
+        JRXlsxExporter exporter = new JRXlsxExporter();
+        
+        exporter.setExporterInput(new SimpleExporterInput(materiReport));
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
+        exporter.exportReport();
     }
 
     @RequestMapping("list")
