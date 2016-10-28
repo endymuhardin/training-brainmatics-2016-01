@@ -49,7 +49,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .successForwardUrl("/materi/list")
+                .defaultSuccessUrl("/materi/list")
                 .permitAll();
     }
 }
