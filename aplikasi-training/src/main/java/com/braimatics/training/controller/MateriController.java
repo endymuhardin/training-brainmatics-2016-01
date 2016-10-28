@@ -52,22 +52,25 @@ public class MateriController {
         return materiJasper;
     }
     
+    private JasperPrint generateMateriJasperReport() throws JRException, IOException {
+        Map<String, Object> reportParameters = new HashMap<>();
+        reportParameters.put("tanggalCetak", new Date());
+        JRBeanCollectionDataSource reportData 
+                = new JRBeanCollectionDataSource(IteratorUtils.toList(md.findAll().iterator()));
+        JasperPrint materiReport = JasperFillManager.fillReport(getMateriJasper(), reportParameters, 
+                reportData);
+        return materiReport;
+    }
+    
     @RequestMapping("/pdf")
     @ResponseBody
     public void generatePdf(HttpServletResponse response) throws JRException, IOException{
-        Map<String, Object> reportParameters = new HashMap<>();
-        reportParameters.put("tanggalCetak", new Date());
-        
-        JRBeanCollectionDataSource reportData 
-                = new JRBeanCollectionDataSource(IteratorUtils.toList(md.findAll().iterator()));
-        
-        JasperPrint materiPdf = JasperFillManager.fillReport(getMateriJasper(), reportParameters, 
-                reportData);
+        JasperPrint materiReport = generateMateriJasperReport();
         response.setContentType("application/x-pdf");
-        response.setHeader("Content-disposition", "inline; filename=materi.pdf");
-        JasperExportManager.exportReportToPdfStream(materiPdf, response.getOutputStream());
+        response.setHeader("Content-disposition", "attachment; filename=daftar-materi.pdf");
+        JasperExportManager.exportReportToPdfStream(materiReport, response.getOutputStream());
     }
-    
+
     @RequestMapping("list")
     public ModelMap daftarMateri(Pageable page){
         ModelMap mm = new ModelMap();
