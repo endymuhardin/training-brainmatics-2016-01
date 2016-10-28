@@ -1,6 +1,6 @@
 insert into s_user (id, username, password, enabled) values 
-('u001', 'user001', '0001', true),
-('u002', 'user002', '0002', true),
+('u001', 'user001', '$2a$06$cwRhnezJE9FffLUhfEAUXuY.yVozSOucIQwDeOiyEXsCwUlrRyJ6O', true), -- password : 0001
+('u002', 'user002', '$2a$06$ncK2rYMHWvfD8DOWQ9AG0ej0vAnqT4FplqcX9V6DV5ecywfaGNpue', true), -- password : 0002
 ('u003', 'user003', '0003', false),
 ('u004', 'user004', '0004', false);
 
